@@ -48,10 +48,10 @@ shinyUI(pageWithSidebar(
     ),
     
     checkboxGroupInput(inputId = "domainShow",
-                       label = "Show NHS and other domain (defaults to all)?",
+                       label = "Show NHS and other domain?",
                        choices = list("NHS users" = "NHS",
                                       "Other" = "Other"),
-                       selected = "NHS users"
+                       selected = c("NHS users", "Other")
     ),
     
     radioButtons(inputId = "outputType",
@@ -72,6 +72,7 @@ shinyUI(pageWithSidebar(
                 tabPanel("Summary", textOutput("textDisplay"),
                          textOutput("queryText"), value = "summary"), 
                 tabPanel("Monthly figures", plotOutput("monthGraph"),
+                         downloadButton("downloadData.trend","Download Graph"),
                          value = "monthly"),
                 tabPanel("Hourly figures", plotOutput("hourGraph"),
                          value = "hourly"),
