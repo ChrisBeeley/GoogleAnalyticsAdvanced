@@ -2,7 +2,20 @@
 ### Google Analytics - ui.R ###
 ###############################
 
-library(shiny) 
+library(shiny)
+
+# test - are they using the newer version of Shiny?
+
+packageCheck = unlist(packageVersion("shiny"))
+
+if(packageCheck[1] == 0 & packageCheck[2] > 8){
+  
+  shinyNew = TRUE
+} else {
+  shinyNew = FALSE
+}
+
+# UI definition
 
 shinyUI(pageWithSidebar( 
   
@@ -51,7 +64,7 @@ shinyUI(pageWithSidebar(
                        label = "Show NHS and other domain?",
                        choices = list("NHS users" = "NHS",
                                       "Other" = "Other"),
-                       selected = c("NHS users", "Other")
+                       selected = c(ifelse(shinyNew, "NHS", "NHS users"), "Other")
     ),
     
     radioButtons(inputId = "outputType",

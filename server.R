@@ -8,6 +8,17 @@ library(ggplot2)
 
 load("analytics.Rdata") # load the dataframe
 
+# test - are they using the newer version of Shiny?
+
+packageCheck = unlist(packageVersion("shiny"))
+
+if(packageCheck[1] == 0 & packageCheck[2] > 8){
+  
+  shinyNew = TRUE
+} else {
+  shinyNew = FALSE
+}
+
 shinyServer(function(input, output, session){ # pass in a session argument
   # for extra functionality
   
@@ -20,7 +31,8 @@ shinyServer(function(input, output, session){ # pass in a session argument
       updateCheckboxGroupInput(session, "domainShow",
                                choices = list("NHS users" = "NHS",
                                               "Other" = "Other"),
-                               selected = "NHS users")
+                               selected = ifelse(shinyNew, "NHS", "NHS users")
+      )
       
     }
     
