@@ -4,15 +4,15 @@
 
 library(shiny)
 
-# test - are they using the newer version of Shiny?
+# test - are they using the older version of Shiny?
 
 packageCheck = unlist(packageVersion("shiny"))
 
-if(packageCheck[1] == 0 & packageCheck[2] > 8){
+if(packageCheck[1] == 0 & packageCheck[2] < 9){
   
-  shinyNew = TRUE
+  shinyOld = TRUE
 } else {
-  shinyNew = FALSE
+  shinyOld = FALSE
 }
 
 # UI definition
@@ -64,7 +64,7 @@ shinyUI(pageWithSidebar(
                        label = "Show NHS and other domain?",
                        choices = list("NHS users" = "NHS",
                                       "Other" = "Other"),
-                       selected = c(ifelse(shinyNew, "NHS", "NHS users"), "Other")
+                       selected = c(ifelse(shinyOld, "NHS users", "NHS"), "Other")
     ),
     
     radioButtons(inputId = "outputType",
